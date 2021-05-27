@@ -13,9 +13,9 @@ class LoginController extends Controller
         $this->middleware('auth:api', ['except' => ['login']]);
     }
 
-    public function login()
+    public function login(Request $request)
     {
-        $credentials = request(['email', 'password']);
+        $credentials = $request->only(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
             return $this->response("Unauthorized",false,401);

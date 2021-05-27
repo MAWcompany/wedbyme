@@ -15,6 +15,10 @@ class Company extends Model
     }
 
     function getLogoAttribute($value){
-        return URL::to("public/".$value);
+        return URL::to("public/images/".$value);
+    }
+
+    function user(){
+        return $this->belongsTo(User::class,"user_id","id");
     }
 }

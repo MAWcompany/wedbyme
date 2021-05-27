@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(HallAttributeSeeder::class);
         $this->call(HallTypeSeeder::class);
+
         User::factory(10)->create()->each(function (User $user){
             $company = $user->company()->save(Company::factory()->make());
             for($i = 0;$i < rand(1,5);$i++) {

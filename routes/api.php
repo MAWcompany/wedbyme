@@ -3,6 +3,12 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix("auth")->group(function (){
+    Route::post("login",[\App\Http\Controllers\Auth\LoginController::class,"login"]);
+});
+
+Route::middleware('auth:api')->group(function (){
+    Route::prefix('admin')->group(function (){
+        Route::resource("companies",\App\Http\Controllers\Admin\AdminCompanyController::class);
+    });
 });
