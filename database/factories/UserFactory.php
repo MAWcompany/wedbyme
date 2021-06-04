@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class UserFactory extends Factory
@@ -22,10 +23,15 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $logos = Storage::disk("public")->files("test_data/logo");
+
         return [
             'email' => $this->faker->unique()->safeEmail(),
             'password' => 'password',
             'phone' => "+374".$this->faker->numberBetween(10000000,99999999),
+            "title" => $this->faker->company,
+            "logo" => $this->faker->randomElement($logos),
+            "about" => $this->faker->realText(2000),
         ];
     }
 

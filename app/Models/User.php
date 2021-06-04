@@ -6,44 +6,37 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\URL;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'name',
         'email',
         'password',
+        "title",
+        "phone",
+        "about",
+        "logo"
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    function halls(){
+        return $this->hasMany(Hall::class,"user_id","id");
+    }
 
-    function company(){
-        return $this->hasOne(Company::class,"user_id","id");
+    function getLogoAttribute($value){
+        return URL::to("public/images/".$value);
+    }
+
+    function user(){
+        return $this->belongsTo(User::class,"user_id","id");
     }
 
     public function getJWTIdentifier()

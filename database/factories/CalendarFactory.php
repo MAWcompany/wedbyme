@@ -23,7 +23,7 @@ class CalendarFactory extends Factory
     {
         return [
             "date" => $this->faker->dateTimeBetween("-1 years"),
-            "comment" => $this->faker->realText(200)
+            "comment" => $this->faker->numberBetween(0,5) > 4 ? $this->faker->realText(200) : ""
         ];
     }
 }

@@ -16,7 +16,6 @@ class CreateHallTypesTable extends Migration
         Schema::create('hall_types', function (Blueprint $table) {
             $table->id();
             $table->string("title");
-            $table->timestamps();
         });
     }
 

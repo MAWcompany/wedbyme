@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\URL;
 
 class Hall extends Model
 {
@@ -22,7 +23,9 @@ class Hall extends Model
     }
 
     function getImagesAttribute($value){
-        return json_decode($value,true);
+        return collect(json_decode($value,true))->map(function ($image){
+            return URL::to("public/images/".$image);
+        });
     }
 
     function setImagesAttribute($arr){

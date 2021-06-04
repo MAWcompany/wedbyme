@@ -4,38 +4,37 @@
 namespace App\Repositories;
 
 
-use App\Models\Company;
+use App\Models\User;
 
 class CompanyRepository implements RepositoryInterface
 {
 
     function getAll()
     {
-        $companies = Company::query()
-            ->with("user")
-            ->with("halls")
+        $companies = User::query()
+            ->withCount("halls")
             ->get();
 
         return $companies;
     }
 
-    function get($options)
+    function get($id)
     {
-        // TODO: Implement get() method.
+        return User::findOrFail($id);
     }
 
     function add($data)
     {
-        // TODO: Implement add() method.
+        return User::create($data);
     }
 
     function update($id, $data)
     {
-        // TODO: Implement update() method.
+        return $this->get($id)->update($data);
     }
 
     function delete($id)
     {
-        // TODO: Implement delete() method.
+        return $this->get($id)->delete();
     }
 }

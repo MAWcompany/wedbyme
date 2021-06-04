@@ -17,9 +17,17 @@ class HallAttributeSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Factory::create();
-        for($i = 0;$i < 5;$i++){
-            HallAttribute::create(['title' => $faker->jobTitle]);
+        $attrs = [
+            "Ավտոկայանատեղի",
+            "Այգի",
+            "Շատրվան",
+            "Կենդանի երաժշտություն",
+            "Լողավազան",
+            "Մանկական սենյակ",
+            "Պարահրապարակ",
+        ];
+        foreach ($attrs as $attr) {
+            HallAttribute::create(['title' => $attr]);
         }
     }
 }

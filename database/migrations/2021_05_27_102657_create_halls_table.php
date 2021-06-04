@@ -15,14 +15,21 @@ class CreateHallsTable extends Migration
     {
         Schema::create('halls', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("company_id")->index();
-            $table->string("types");
+            $table->unsignedBigInteger("user_id")->index();
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete("cascade")
+                ->onUpdate("cascade");
+            $table->json("types");
             $table->string("images");
-            $table->string("guest_count");
-            $table->string("price");
+            $table->integer("guest_count_min")->nullable()->default(1);
+            $table->integer("guest_count_max")->nullable()->default(1000000);
+            $table->integer("price_min")->nullable()->default(0);
+            $table->integer("price_max")->nullable()->default(1000000);
             $table->string("coords");
             $table->string("phones");
-            $table->string("attributes");
+            $table->json("attributes");
             $table->string("address");
             $table->float("review");
             $table->timestamps();

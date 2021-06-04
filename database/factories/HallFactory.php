@@ -34,8 +34,10 @@ class HallFactory extends Factory
         $images = $images->random($this->faker->numberBetween(1,$images->count()));
         return [
             "images" => $images,
-            "guest_count" => [rand(1,10)*10,rand(5,20)*10],
-            "price" => [rand(2,5)*1000,rand(7,15)*1000],
+            "guest_count_min" => rand(1,10)*10,
+            "guest_count_max" => rand(5,20)*10,
+            "price_min" => rand(2,5)*1000,
+            "price_max" => rand(7,15)*1000,
             "coords" => [40 + $this->faker->randomFloat(5,-0.5,0.5),44 + $this->faker->randomFloat(5,-0.5,0.5)],
             "phones" => $phones,
             "types" => $types->random(rand(1,5))->toArray(),

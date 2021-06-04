@@ -16,9 +16,13 @@ class CreateCalendarsTable extends Migration
         Schema::create('calendars', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger("hall_id")->index();
+            $table->foreign('hall_id')
+                ->references('id')
+                ->on('halls')
+                ->onDelete("cascade")
+                ->onUpdate("cascade");
             $table->date("date");
             $table->text("comment")->nullable();
-            $table->timestamps();
         });
     }
 

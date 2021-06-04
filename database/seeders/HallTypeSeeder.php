@@ -16,9 +16,17 @@ class HallTypeSeeder extends Seeder
      */
     public function run()
     {
-        $faker = Factory::create();
-        for($i = 0;$i < 5;$i++){
-            HallTypes::create(['title' => $faker->jobTitle]);
+        $types = [
+            "Հարսանյաց սրահ",
+            "Սգո սրահ",
+            "Հանդիսությունների սրահ",
+            "Քոթեջ",
+            "Հանգստյան Տներ",
+            "Վիլլաներ",
+        ];
+        foreach ($types as $type){
+            HallTypes::create(['title' => $type]);
         }
+
     }
 }

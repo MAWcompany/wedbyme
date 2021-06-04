@@ -16,7 +16,6 @@ class CreateHallAttributesTable extends Migration
         Schema::create('hall_attributes', function (Blueprint $table) {
             $table->id();
             $table->string("title");
-            $table->timestamps();
         });
     }
 
