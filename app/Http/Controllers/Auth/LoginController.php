@@ -9,11 +9,6 @@ use Illuminate\Http\Request;
 class LoginController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth:api', ['except' => ['login','unauthorized']]);
-    }
-
     public function login(LoginRequest $request)
     {
         $credentials = $request->only(['email', 'password']);
@@ -22,7 +17,10 @@ class LoginController extends Controller
             return $this->unauthorized();
         }
 
-        return $this->response($token);
+        return $this->response([
+            "token" => $token,
+            "user" => \Auth::user()
+        ]);
     }
 
     public function logout()

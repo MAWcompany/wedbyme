@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string("title");
             $table->string("logo")->nullable();
             $table->longText("about")->nullable();
+            $table->enum("role",\App\Models\User::ROLES)->default(\App\Models\User::ROLE_COMPANY);
             $table->timestamps();
         });
     }

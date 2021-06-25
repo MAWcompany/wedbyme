@@ -27,7 +27,7 @@ class CompanyStoreRequest extends ApiRequest
             "phone" => "required",
             "email" => "required|unique:users",
             "password" => "required",
-            "title" => "required"
+            "title" => "required",
         ];
     }
 }

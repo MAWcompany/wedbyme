@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Calendar;
+use App\Models\CalendarDay;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CalendarFactory extends Factory
+class CalendarDayFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Calendar::class;
+    protected $model = CalendarDay::class;
 
     /**
      * Define the model's default state.

@@ -14,6 +14,7 @@
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^2.10",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "jason-guru/laravel-make-repository": "^0.0.3",
@@ -44,6 +45,11 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "post-update-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta"
         ]
     },
     "extra": {

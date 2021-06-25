@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Calendar;
+use App\Models\CalendarDay;
 use App\Models\Hall;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -16,14 +17,11 @@ class HallSeeder extends Seeder
      */
     public function run()
     {
-        User::all()->each(function ($user){
-            for($j = 0;$j < rand(1,5);$j++) {
-                $hall = Hall::factory()->make();
-                $user->halls()->save($hall);
-                for($i = 10;$i < rand(20,100);$i++){
-                    $calendar = Calendar::factory()->make();
-                    $hall->calendar()->save($calendar);
-                }
+        User::companies()->each(function ($user){
+            $halls = Hall::factory()->count(rand(1,10))->make();
+            $user->halls()->saveMany($halls);
+            foreach ($user->halls as $hall){
+                $hall->calendar->days()->saveMany(CalendarDay::factory()->count(rand(3,10))->make());
             }
         });
     }

@@ -9,6 +9,22 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\URL;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
+/**
+ * App\Models\User
+ *
+ * @property-read mixed $logo
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Hall[] $halls
+ * @property-read int|null $halls_count
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read int|null $notifications_count
+ * @property-write mixed $password
+ * @property-read User $user
+ * @method static \Database\Factories\UserFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User query()
+ * @mixin \Eloquent
+ */
 class User extends Authenticatable implements JWTSubject
 {
     use HasFactory, Notifiable;
@@ -19,7 +35,8 @@ class User extends Authenticatable implements JWTSubject
         "title",
         "phone",
         "about",
-        "logo"
+        "logo",
+        "role"
     ];
 
     protected $hidden = [
@@ -27,16 +44,23 @@ class User extends Authenticatable implements JWTSubject
         'remember_token',
     ];
 
+    const ROLE_ADMIN = "admin";
+    const ROLE_COMPANY = "company";
+    const ROLES = [
+        self::ROLE_ADMIN,
+        self::ROLE_COMPANY
+    ];
+
     function halls(){
-        return $this->hasMany(Hall::class,"user_id","id");
+        return $this->hasMany(Hall::class,"user_id","id")->with("calendar");
+    }
+
+    static function companies(){
+        return User::query()->where("role",self::ROLE_COMPANY)->get();
     }
 
     function getLogoAttribute($value){
-        return URL::to("public/images/".$value);
-    }
-
-    function user(){
-        return $this->belongsTo(User::class,"user_id","id");
+        return $value ? URL::to("public/images/".$value) : null;
     }
 
     public function getJWTIdentifier()

@@ -43,7 +43,8 @@ class HallFactory extends Factory
             "types" => $types->random(rand(1,5))->toArray(),
             "attributes" => $attributes->random(rand(1,5))->toArray(),
             "review" => $this->faker->randomFloat(1,3,5),
-            "address" => $this->faker->address
+            "address" => $this->faker->address,
+            "region" => $this->faker->jobTitle
         ];
     }
 }

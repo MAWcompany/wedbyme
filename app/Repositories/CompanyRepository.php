@@ -12,6 +12,7 @@ class CompanyRepository implements RepositoryInterface
     function getAll()
     {
         $companies = User::query()
+            ->where("role",User::ROLE_COMPANY)
             ->withCount("halls")
             ->get();
 
@@ -20,7 +21,7 @@ class CompanyRepository implements RepositoryInterface
 
     function get($id)
     {
-        return User::findOrFail($id);
+        return User::query()->where("id",$id)->firstOrFail();
     }
 
     function add($data)

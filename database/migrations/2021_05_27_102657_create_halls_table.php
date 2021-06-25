@@ -22,16 +22,23 @@ class CreateHallsTable extends Migration
                 ->onDelete("cascade")
                 ->onUpdate("cascade");
             $table->json("types");
-            $table->string("images");
+            $table->json("images");
             $table->integer("guest_count_min")->nullable()->default(1);
             $table->integer("guest_count_max")->nullable()->default(1000000);
             $table->integer("price_min")->nullable()->default(0);
             $table->integer("price_max")->nullable()->default(1000000);
-            $table->string("coords");
-            $table->string("phones");
+            $table->json("coords");
+            $table->json("phones");
             $table->json("attributes");
             $table->string("address");
+            $table->string("region");
             $table->float("review");
+            $table->unsignedBigInteger("calendar_id")->nullable()->index();
+            $table->foreign('calendar_id')
+                ->references('id')
+                ->on('calendars')
+                ->onDelete("cascade")
+                ->onUpdate("cascade");
             $table->timestamps();
         });
     }

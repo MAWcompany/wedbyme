@@ -14,10 +14,12 @@ class ApiRequest extends FormRequest
 {
     protected function failedValidation(Validator $validator)
     {
-        $errors = (new ValidationException($validator))->errors();
+        $ex = new ValidationException($validator);
+        $errors = $ex->errors();
+        $message = $ex->getMessage();
 
         throw new HttpResponseException(
-            response()->json(["status" => false,"response" => $errors],JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
+            response()->json(["status" => false,"response" => ["message" => $message,"errors" => $errors]],JsonResponse::HTTP_UNPROCESSABLE_ENTITY)
         );
     }
 }
